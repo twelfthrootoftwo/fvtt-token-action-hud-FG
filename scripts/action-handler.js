@@ -56,28 +56,59 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		 */
 		async #buildAttributeRolls() {
 			const actionTypeId = "rolled";
-			const groupData = {id: "rolled", type: "system"};
-			const actions = [];
-			for (const attribute in this.actor.system.attributes.rolled) {
-				const attr = this.actor.system.attributes.rolled[attribute];
-				const id = attr.key;
-				const name = attr.label;
-				const actionTypeName = coreModule.api.Utils.i18n(
-					ACTION_TYPE[actionTypeId]
-				);
-				const listName = `${
-					actionTypeName ? `${actionTypeName}: ` : ""
-				}${name}`;
-				const encodedValue = [actionTypeId, id].join(this.delimiter);
+			const rolledMap = new Map();
 
-				actions.push({
-					id,
-					name,
-					listName,
-					encodedValue,
-				});
+			for (const attr in this.actor.system.attributes.rolled) {
+				const attribute = this.actor.system.attributes.rolled[attr];
+				const attributeMap = new Map();
+				attributeMap.set(
+					attribute.key + "_1d6",
+					attribute.key + "_1d6"
+				);
+				attributeMap.set(
+					attribute.key + "_2d6",
+					attribute.key + "_2d6"
+				);
+				attributeMap.set(
+					attribute.key + "_3d6",
+					attribute.key + "_3d6"
+				);
+				rolledMap.set(attribute.key, attributeMap);
 			}
-			this.addActions(actions, groupData);
+
+			for (const [attr, attrMap] of rolledMap) {
+				const groupId = attr;
+				const groupData = {id: groupId, type: "system"};
+				const attribute = this.actor.system.attributes.rolled[attr];
+
+				const actions = [...attrMap].map(
+					([actionLabel, actionData]) => {
+						console.log(actionLabel);
+
+						const id = actionLabel;
+						const name = actionLabel;
+
+						const actionTypeName = coreModule.api.Utils.i18n(
+							ACTION_TYPE[actionTypeId]
+						);
+						const listName = `${
+							actionTypeName ? `${actionTypeName}: ` : ""
+						}${name}`;
+						const encodedValue = [actionTypeId, id].join(
+							this.delimiter
+						);
+						console.log({id, name, listName, encodedValue});
+
+						return {
+							id,
+							name,
+							listName,
+							encodedValue,
+						};
+					}
+				);
+				this.addActions(actions, groupData);
+			}
 		}
 	};
 });

@@ -29,9 +29,24 @@ export const ACTION_TYPE = {
  * Groups
  */
 export const GROUP = {
-	rolled: {
-		id: "rolled",
-		name: "Rolled",
+	close: {
+		id: "close",
+		name: "Close",
+		type: "system",
+	},
+	far: {
+		id: "far",
+		name: "Far",
+		type: "system",
+	},
+	mental: {
+		id: "mental",
+		name: "Mental",
+		type: "system",
+	},
+	power: {
+		id: "power",
+		name: "Power",
 		type: "system",
 	},
 	flat: {
