@@ -48,6 +48,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		 */
 		#buildCharacterActions() {
 			this.#buildAttributeRolls();
+			this.#buildFlatAttributes();
 		}
 
 		/**
@@ -61,18 +62,9 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 			for (const attr in this.actor.system.attributes.rolled) {
 				const attribute = this.actor.system.attributes.rolled[attr];
 				const attributeMap = new Map();
-				attributeMap.set(
-					attribute.key + "_1d6",
-					attribute.key + "_1d6"
-				);
-				attributeMap.set(
-					attribute.key + "_2d6",
-					attribute.key + "_2d6"
-				);
-				attributeMap.set(
-					attribute.key + "_3d6",
-					attribute.key + "_3d6"
-				);
+				attributeMap.set("1d6", attribute.key + "_1d6");
+				attributeMap.set("2d6", attribute.key + "_2d6");
+				attributeMap.set("3d6", attribute.key + "_3d6");
 				rolledMap.set(attribute.key, attributeMap);
 			}
 
@@ -110,5 +102,31 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				this.addActions(actions, groupData);
 			}
 		}
+
+		/**
+		 * Build non-rolled attributes
+		 * @private
+		 */
+		async #buildFlatAttributes() {
+			console.log("Building flat");
+			const groupData = {id: "flat", type: "system"};
+			const id = "flat";
+			const name = "Flat";
+			const listName = coreModule.api.Utils.i18n(ACTION_TYPE[id]);
+			const encodedValue = [id, id].join(this.delimiter);
+			const flatAction = {
+				id,
+				name,
+				listName,
+				encodedValue,
+			};
+			this.addActions([flatAction], groupData);
+		}
+
+		/**
+		 * Build utilities
+		 * @private
+		 */
+		async #buildUtilities() {}
 	};
 });

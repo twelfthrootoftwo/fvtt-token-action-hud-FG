@@ -22,6 +22,7 @@ export const REQUIRED_CORE_MODULE_VERSION = "1.5";
  */
 export const ACTION_TYPE = {
 	rolled: "Rolled",
+	flat: "Flat",
 	utility: "tokenActionHud.utility",
 };
 
