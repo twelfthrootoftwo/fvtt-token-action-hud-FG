@@ -22,40 +22,27 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 			const actionTypeId = payload[0];
 			const actionId = payload[1];
 
-			const renderable = ["rolled"];
+			const renderable = ["rolled", "flat"];
 
 			if (renderable.includes(actionTypeId) && this.isRenderItem()) {
 				return this.doRenderItem(this.actor, actionId);
 			}
 
-			if (actionTypeId === "rolled") {
-				const knownCharacters = ["fisher", "fish"];
+			const knownCharacters = ["fisher", "fish"];
 
-				// If single actor is selected
-				if (this.actor) {
-					await this.#handleAction(
-						event,
-						this.actor,
-						this.token,
-						actionTypeId,
-						actionId
-					);
-					return;
-				}
-
-				//Multiple actors not supported
+			// If single actor is selected
+			if (this.actor) {
+				await this.#handleAction(
+					event,
+					this.actor,
+					this.token,
+					actionTypeId,
+					actionId
+				);
+				return;
 			}
-		}
 
-		/**
-		 * Handle action hover
-		 * Called by Token Action HUD Core when an action is hovered on or off
-		 * @override
-		 * @param {object} event        The event
-		 * @param {string} encodedValue The encoded value
-		 */
-		async handleActionHover(event, encodedValue) {
-			//TODO: Show flat attributes
+			//Multiple actors not supported
 		}
 
 		/**
@@ -72,11 +59,13 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				case "rolled":
 					this.#handleRollAction(event, actor, actionId);
 					break;
+				case "flat":
+					this.#handleFlatAction(event, actor, actionId);
 			}
 		}
 
 		/**
-		 * Handle item action
+		 * Handle roll action
 		 * @private
 		 * @param {object} event    The event
 		 * @param {object} actor    The actor
@@ -87,6 +76,18 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 			const diceDetails = rollDetails[1].split("d");
 			//TODO: make this an actual function
 			//actor.rollAttribute(actionId.key, actionId.dieCount, actionId.dieSize)
+		}
+
+		/**
+		 * Handle flat attribute click
+		 * @private
+		 * @param {object} event    The event
+		 * @param {object} actor    The actor
+		 * @param {string} actionId The action id
+		 */
+		#handleFlatAction(event, actor, actionId) {
+			//TODO: make this an actual function
+			//actor.shareFlatAttributes()
 		}
 	};
 });

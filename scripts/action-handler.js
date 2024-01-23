@@ -109,11 +109,14 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 			const name = "Flat";
 			const listName = coreModule.api.Utils.i18n(ACTION_TYPE[id]);
 			const encodedValue = [id, id].join(this.delimiter);
+			const tolltip = "";
+			//const tooltip = this.actor.getFlatAttributeString();
 			const flatAction = {
 				id,
 				name,
 				listName,
 				encodedValue,
+				tooltip: tooltip,
 			};
 			this.addActions([flatAction], groupData);
 		}
