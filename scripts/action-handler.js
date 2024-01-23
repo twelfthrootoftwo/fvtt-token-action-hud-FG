@@ -62,22 +62,22 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 			for (const attr in this.actor.system.attributes.rolled) {
 				const attribute = this.actor.system.attributes.rolled[attr];
 				const attributeMap = new Map();
-				attributeMap.set("1d6", attribute.key + "_1d6");
-				attributeMap.set("2d6", attribute.key + "_2d6");
-				attributeMap.set("3d6", attribute.key + "_3d6");
+				for (let i = 1; i < 4; i++) {
+					const label = i.toString() + "d6";
+					attributeMap.set(label, attr + ":" + label);
+				}
 				rolledMap.set(attribute.key, attributeMap);
 			}
 
 			for (const [attr, attrMap] of rolledMap) {
 				const groupId = attr;
 				const groupData = {id: groupId, type: "system"};
-				const attribute = this.actor.system.attributes.rolled[attr];
 
 				const actions = [...attrMap].map(
 					([actionLabel, actionData]) => {
 						console.log(actionLabel);
 
-						const id = actionLabel;
+						const id = actionData;
 						const name = actionLabel;
 
 						const actionTypeName = coreModule.api.Utils.i18n(

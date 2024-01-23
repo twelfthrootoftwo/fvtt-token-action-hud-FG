@@ -22,27 +22,29 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 			const actionTypeId = payload[0];
 			const actionId = payload[1];
 
-			const renderable = ["attributeRolls"];
+			const renderable = ["rolled"];
 
 			if (renderable.includes(actionTypeId) && this.isRenderItem()) {
 				return this.doRenderItem(this.actor, actionId);
 			}
 
-			const knownCharacters = ["fisher", "fish"];
+			if (actionTypeId === "rolled") {
+				const knownCharacters = ["fisher", "fish"];
 
-			// If single actor is selected
-			if (this.actor) {
-				await this.#handleAction(
-					event,
-					this.actor,
-					this.token,
-					actionTypeId,
-					actionId
-				);
-				return;
+				// If single actor is selected
+				if (this.actor) {
+					await this.#handleAction(
+						event,
+						this.actor,
+						this.token,
+						actionTypeId,
+						actionId
+					);
+					return;
+				}
+
+				//Multiple actors not supported
 			}
-
-			//Multiple actors not supported
 		}
 
 		/**
@@ -67,7 +69,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		 */
 		async #handleAction(event, actor, token, actionTypeId, actionId) {
 			switch (actionTypeId) {
-				case "attributeRolls":
+				case "rolled":
 					this.#handleRollAction(event, actor, actionId);
 					break;
 			}
@@ -81,9 +83,12 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		 * @param {string} actionId The action id
 		 */
 		#handleRollAction(event, actor, actionId) {
-			//TODO: make this an actual function
 			console.log(actionId);
-			//actor.roll()
+			const rollDetails = actionId.split(":");
+			const diceDetails = rollDetails[1].split("d");
+			//TODO: make this an actual function
+			console.log(rollDetails[0], diceDetails[0], diceDetails[1]);
+			//actor.rollAttribute(actionId.key, actionId.dieCount, actionId.dieSize)
 		}
 	};
 });
