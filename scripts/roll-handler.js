@@ -83,11 +83,9 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		 * @param {string} actionId The action id
 		 */
 		#handleRollAction(event, actor, actionId) {
-			console.log(actionId);
 			const rollDetails = actionId.split(":");
 			const diceDetails = rollDetails[1].split("d");
 			//TODO: make this an actual function
-			console.log(rollDetails[0], diceDetails[0], diceDetails[1]);
 			//actor.rollAttribute(actionId.key, actionId.dieCount, actionId.dieSize)
 		}
 	};

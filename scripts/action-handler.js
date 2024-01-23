@@ -5,7 +5,6 @@ import {Utils} from "./utils.js";
 export let ActionHandler = null;
 
 Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
-	console.log("Init");
 	/**
 	 * Extends Token Action HUD Core's ActionHandler class and builds system-defined actions for the HUD
 	 */
@@ -75,8 +74,6 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 
 				const actions = [...attrMap].map(
 					([actionLabel, actionData]) => {
-						console.log(actionLabel);
-
 						const id = actionData;
 						const name = actionLabel;
 
@@ -89,7 +86,6 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 						const encodedValue = [actionTypeId, id].join(
 							this.delimiter
 						);
-						console.log({id, name, listName, encodedValue});
 
 						return {
 							id,
@@ -108,7 +104,6 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		 * @private
 		 */
 		async #buildFlatAttributes() {
-			console.log("Building flat");
 			const groupData = {id: "flat", type: "system"};
 			const id = "flat";
 			const name = "Flat";
