@@ -72,7 +72,6 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		 * @param {string} actionId The action id
 		 */
 		#handleRollAction(event, actor, actionId) {
-			console.log(actionId);
 			const rollDetails = actionId.split(":");
 			const diceDetails = rollDetails[1].split("d");
 			//TODO: make this an actual function
@@ -88,7 +87,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		 */
 		#handleFlatAction(event, actor, actionId) {
 			//TODO: make this an actual function
-			//actor.shareFlatAttributes()
+			actor.shareFlatAttributes();
 		}
 	};
 });
