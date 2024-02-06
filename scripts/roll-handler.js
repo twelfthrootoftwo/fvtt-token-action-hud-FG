@@ -85,9 +85,9 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		 * @param {object} actor    The actor
 		 * @param {string} actionId The action id
 		 */
-		#handleFlatAction(event, actor, actionId) {
+		async #handleFlatAction(event, actor, actionId) {
 			//TODO: make this an actual function
-			actor.shareFlatAttributes();
+			await actor.shareFlatAttributes();
 		}
 	};
 });
