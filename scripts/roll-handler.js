@@ -99,6 +99,9 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				case "weightTotal":
 					this.#handleWeightTotal();
 					break;
+				case "hitLocation":
+					actor.locationHitMessage();
+					break;
 				default:
 					console.log(`Util action code not recognised: ${actionId}`)
 			}

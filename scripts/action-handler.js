@@ -176,7 +176,8 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		 * Build other fisher actions
 		 * @private
 		 */
-		async #buildFisherActions() {}
+		async #buildFisherActions() {
+		}
 
 		/**
 		 * Build other fish actions
@@ -189,6 +190,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 			//Scan
 			const actions=[];
 			actions.push(await this.constructScan(actionTypeId));
+			actions.push(await this.constructHitLocation(actionTypeId));
 			actions.push(await this.constructWeightTotal(actionTypeId));
 			this.addActions(actions, groupData);
 		}
@@ -219,6 +221,14 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		async constructWeightTotal(actionTypeId) {
 			let id="weightTotal"
 			let name=game.i18n.localize("tokenActionHud.hooklineandmecha.weightTotal");
+			let encodedValue = [actionTypeId, id].join(this.delimiter);
+		
+			return {id, name, encodedValue}
+		}
+
+		async constructHitLocation(actionTypeId) {
+			let id="hitLocation"
+			let name=game.i18n.localize("SHEET.hitlocation");
 			let encodedValue = [actionTypeId, id].join(this.delimiter);
 		
 			return {id, name, encodedValue}
