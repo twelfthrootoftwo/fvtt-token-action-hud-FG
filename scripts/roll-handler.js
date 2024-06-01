@@ -67,8 +67,10 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				case "active":
 				case "passive":
 					this.#handleInternal(event, actor, actionId);
+					break;
 				case "utility":
 					this.#handleUtils(event, actor, actionId);
+					break;
 				default:
 					console.log(`Action type code not recognised: ${actionTypeId}`)
 			}
