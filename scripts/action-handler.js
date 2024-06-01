@@ -177,6 +177,12 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		 * @private
 		 */
 		async #buildFisherActions() {
+			const actionTypeId = "utility";
+			const groupData = { id: "utility", name: game.i18n.localize("tokenActionHud.hooklineandmecha.utility"), type: "system" };
+
+			const actions=[];
+			actions.push(await this.constructHitLocation(actionTypeId));
+			this.addActions(actions, groupData);
 		}
 
 		/**
@@ -187,7 +193,6 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 			const actionTypeId = "utility";
 			const groupData = { id: "utility", name: game.i18n.localize("tokenActionHud.hooklineandmecha.utility"), type: "system" };
 
-			//Scan
 			const actions=[];
 			actions.push(await this.constructScan(actionTypeId));
 			actions.push(await this.constructHitLocation(actionTypeId));
