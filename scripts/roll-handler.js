@@ -14,7 +14,6 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		 */
 		async handleActionClick(event, encodedValue) {
 			const payload = encodedValue.split("|");
-			console.log(payload);
 
 			if (payload.length < 2) {
 				super.throwInvalidValueErr();
@@ -41,6 +40,12 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 					actionId
 				);
 				return;
+			} else {
+				await this.#handleCollectiveAction(
+					event,
+					actionTypeId,
+					actionId
+				);
 			}
 		}
 
@@ -58,6 +63,14 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				case "attribute":
 					this.#handleRollAction(event, actor, actionId);
 					break;
+				case "weapon":
+				case "active":
+				case "passive":
+					this.#handleInternal(event, actor, actionId);
+				case "utility":
+					this.#handleUtils(event, actor, actionId);
+				default:
+					console.log(`Action type code not recognised: ${actionTypeId}`)
 			}
 		}
 
@@ -70,6 +83,40 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		 */
 		#handleRollAction(event, actor, attributeKey) {
 			actor.startRollDialog(attributeKey);
+		}
+
+		#handleInternal(event, actor, internalId) {
+			actor.postInternal(internalId);
+		}
+
+		#handleUtils(event, actor, actionId) {
+			switch(actionId) {
+				case "scan":
+					actor.toggleScan();
+					break;
+				case "weightTotal":
+					this.#handleWeightTotal();
+					break;
+				default:
+					console.log(`Util action code not recognised: ${actionId}`)
+			}
+		}
+
+		async #handleCollectiveAction(event, actionTypeId,actionId) {
+			switch(actionId) {
+				case "weightTotal":
+					this.#handleWeightTotal();
+				default:
+					console.log(`Collective action code not recognised: ${actionId}`)
+			}
+		}
+
+		async #handleWeightTotal() {
+			const macroCollection=await game.packs.find(p => p.metadata.name === "core_macros");
+			const macroRecord = macroCollection.index.filter(p => p.name = "Weight Calculator");
+			const macro=await macroCollection.getDocument(macroRecord[0]._id);
+
+			macro.execute();
 		}
 	};
 });

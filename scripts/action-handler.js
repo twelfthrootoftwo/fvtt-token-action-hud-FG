@@ -17,17 +17,15 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		 */ a;
 		async buildSystemActions(groupIds) {
 			// Set actor and token variables
-			this.actors = !this.actor ? this._getActors() : [this.actor];
 			this.actorType = this.actor?.type;
 
 			// Set items variable
 			if (this.actor) {
 				this.items = this.actor.itemTypes;
-			}
-
-			if (this.actorType === "fisher" || this.actorType === "fish") {
-				this.#buildCharacterActions();
-			} else if (!this.actor) {
+				if (this.actorType === "fisher" || this.actorType === "fish") {
+					this.#buildCharacterActions();
+				}
+			} else {
 				this.#buildMultipleTokenActions();
 			}
 		}
@@ -37,17 +35,16 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		 * @private
 		 */
 		#buildCharacterActions() {
-			// switch(this.actorType) {
-			// 	case "fisher":
-			// 		this.#buildFisherActions();
-			// 		break;
-			// 	case "fish":
-			// 		this.#buildFishActions();
-			// 		break;
-			// }
+			switch(this.actorType) {
+				case "fisher":
+					this.#buildFisherActions();
+					break;
+				case "fish":
+					this.#buildFishActions();
+					break;
+			}
 			this.#buildAttributeRolls();
 			this.#buildInternals();
-			//this.#buildActiveInternals();
 		}
 
 		/**
@@ -65,7 +62,6 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 					const id = attr;
 					const name=game.i18n.localize(`ATTRIBUTES.${attr}`);
 					const encodedValue = [actionTypeId, id].join(this.delimiter);
-					console.log(encodedValue);
 					actions.push({
 						id,
 						name,
@@ -121,14 +117,12 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				const id=item._id;
 				const name=item.name;
 				const encodedValue = [actionTypeId, id].join(this.delimiter);
-				console.log(encodedValue);
 				actions.push({
 					id,
 					name,
 					encodedValue,
 				});
 			})
-			console.log(actions);
 			this.addActions(actions, groupData);
 		}
 
@@ -146,14 +140,12 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				const id=item._id;
 				const name=item.name;
 				const encodedValue = [actionTypeId, id].join(this.delimiter);
-				console.log(encodedValue);
 				actions.push({
 					id,
 					name,
 					encodedValue,
 				});
 			})
-			console.log(actions);
 			this.addActions(actions, groupData);
 		}
 
@@ -171,14 +163,12 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				const id=item._id;
 				const name=item.name;
 				const encodedValue = [actionTypeId, id].join(this.delimiter);
-				console.log(encodedValue);
 				actions.push({
 					id,
 					name,
 					encodedValue,
 				});
 			})
-			console.log(actions);
 			this.addActions(actions, groupData);
 		}
 
@@ -192,13 +182,47 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		 * Build other fish actions
 		 * @private
 		 */
-		async #buildFishActions() {}
+		async #buildFishActions() {
+			const actionTypeId = "utility";
+			const groupData = { id: "utility", name: game.i18n.localize("tokenActionHud.hooklineandmecha.utility"), type: "system" };
+
+			//Scan
+			const actions=[];
+			actions.push(await this.constructScan(actionTypeId));
+			actions.push(await this.constructWeightTotal(actionTypeId));
+			this.addActions(actions, groupData);
+		}
 
 		/**
-		 * Build other fish actions
+		 * Build collective actions
 		 * @private
 		 */
-		async #buildMultipleTokenActions() {}
+		async #buildMultipleTokenActions() {
+			const actionTypeId = "utility";
+			const groupData = { id: "utility", name: game.i18n.localize("tokenActionHud.hooklineandmecha.utility"), type: "system" };
+
+			//Weight total
+			const actions=[];
+			actions.push(await this.constructWeightTotal(actionTypeId));
+			this.addActions(actions, groupData);
+		}
+
+		async constructScan(actionTypeId) {
+			const id="scan"
+			//const name=await this.actor.getScanText();
+			const name=game.i18n.localize("tokenActionHud.hooklineandmecha.scan");
+			const encodedValue = [actionTypeId, id].join(this.delimiter);
+		
+			return {id, name, encodedValue}
+		}
+		
+		async constructWeightTotal(actionTypeId) {
+			let id="weightTotal"
+			let name=game.i18n.localize("tokenActionHud.hooklineandmecha.weightTotal");
+			let encodedValue = [actionTypeId, id].join(this.delimiter);
+		
+			return {id, name, encodedValue}
+		}
 	};
 });
 
@@ -206,3 +230,4 @@ function shouldDisplayAttribute(attr) {
 	const toDisplay=["close","far","mental","power"];
 	return toDisplay.includes(attr);
 }
+

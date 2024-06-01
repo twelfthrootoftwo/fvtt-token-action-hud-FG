@@ -8,11 +8,11 @@
         "mental": "Mental",
         "power": "Power"
       },
-      "weapon": "Weapons",
-      "active": "Active Internals",
+      "internal": "Internals",
       "reel": "Reel",
       "scan": "Scan",
-      "util": "Utilities"
+      "utility": "Utilities",
+      "weightTotal": "Weight total"
     }
   }
 }
