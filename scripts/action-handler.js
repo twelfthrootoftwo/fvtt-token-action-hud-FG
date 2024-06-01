@@ -22,9 +22,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 
 			// Set items variable
 			if (this.actor) {
-				let items = this.actor.items;
-				items = coreModule.api.Utils.sortItemsByName(items);
-				this.items = items;
+				this.items = this.actor.itemTypes;
 			}
 
 			if (this.actorType === "fisher" || this.actorType === "fish") {
@@ -48,7 +46,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 			// 		break;
 			// }
 			this.#buildAttributeRolls();
-			//this.#buildWeaponInternals();
+			this.#buildInternals();
 			//this.#buildActiveInternals();
 		}
 
@@ -79,16 +77,110 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		}
 
 		/**
+		 * Build internals
+		 * @private
+		 */
+		async #buildInternals() {
+			const weapons=[];
+			const active=[];
+			const passive=[];
+			const internals=this.items["internal_pc"].concat(this.items["internal_npc"]);
+			internals.forEach((internal) => {
+				switch(internal.system.type) {
+					case "melee":
+					case "ranged":
+					case "mental":
+						weapons.push(internal);
+						break;
+					case "active":
+						active.push(internal);
+						break;
+					case "mitigation":
+					case "passive":
+						passive.push(internal);
+						break;
+				}
+			})
+
+			this.#buildWeaponInternals(weapons);
+			this.#buildActiveInternals(active);
+			this.#buildPassiveInternals(passive);
+		}
+
+		/**
 		 * Build weapons
 		 * @private
 		 */
-		async #buildWeaponInternals() {}
+		async #buildWeaponInternals(weapons) {
+			const actionTypeId = "weapon";
+			const groupData = { id: "weapon", name: game.i18n.localize('INTERNALS.weapons'), type: "system" };
+			
+			// Get actions
+			const actions = [];
+			weapons.forEach((item) => {
+				const id=item._id;
+				const name=item.name;
+				const encodedValue = [actionTypeId, id].join(this.delimiter);
+				console.log(encodedValue);
+				actions.push({
+					id,
+					name,
+					encodedValue,
+				});
+			})
+			console.log(actions);
+			this.addActions(actions, groupData);
+		}
 
 		/**
 		 * Build other active internals
 		 * @private
 		 */
-		async #buildActiveInternals() {}
+		async #buildActiveInternals(active) {
+			const actionTypeId = "active";
+			const groupData = { id: "active", name: game.i18n.localize('INTERNALS.active'), type: "system" };
+			
+			// Get actions
+			const actions = [];
+			active.forEach((item) => {
+				const id=item._id;
+				const name=item.name;
+				const encodedValue = [actionTypeId, id].join(this.delimiter);
+				console.log(encodedValue);
+				actions.push({
+					id,
+					name,
+					encodedValue,
+				});
+			})
+			console.log(actions);
+			this.addActions(actions, groupData);
+		}
+
+		/**
+		 * Build passive internals
+		 * @private
+		 */
+		async #buildPassiveInternals(passive) {
+			const actionTypeId = "passive";
+			const groupData = { id: "passive", name: game.i18n.localize('INTERNALS.passive'), type: "system" };
+			
+			// Get actions
+			const actions = [];
+			passive.forEach((item) => {
+				const id=item._id;
+				const name=item.name;
+				const encodedValue = [actionTypeId, id].join(this.delimiter);
+				console.log(encodedValue);
+				actions.push({
+					id,
+					name,
+					encodedValue,
+				});
+			})
+			console.log(actions);
+			this.addActions(actions, groupData);
+		}
 
 		/**
 		 * Build other fisher actions

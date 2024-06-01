@@ -19,15 +19,29 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 			{
 				nestId: "attribute",
 				id: "attribute",
-				name: "Attributes",
+				name: game.i18n.localize("tokenActionHud.hooklineandmecha.attribute"),
 				type: "system",
 				groups: [
-					{id: "attribute", name: "Attributes", type: "system",nestId: "attribute_attribute"}
+					{id: "attribute", name: game.i18n.localize("tokenActionHud.hooklineandmecha.attribute"), type: "system",nestId: "attribute_attribute"}
 				]
-			}
+			},
+			{
+				nestId: "internal",
+				id: "internal",
+				name: "Internals",
+				type: "system",
+				groups: [
+					{id: "weapon", name: game.i18n.localize("INTERNALS.weapons"), type: "system",nestId: "internal_weapon"},
+					{id: "active", name: game.i18n.localize("INTERNALS.active"), type: "system",nestId: "internal_active"},
+					{id: "passive", name: game.i18n.localize("INTERNALS.passive"), type: "system",nestId: "internal_passive"}
+				]
+			},
 		],
 		groups: [
-			{id: "attribute", name: "Attributes", type: "system"}
+			{id: "attribute", name: game.i18n.localize("tokenActionHud.hooklineandmecha.attribute"), type: "system"},
+			{id: "weapon", name: game.i18n.localize("INTERNALS.weapons"), type: "system"},
+			{id: "active", name: game.i18n.localize("INTERNALS.active"), type: "system"},
+			{id: "passive", name: game.i18n.localize("INTERNALS.passive"), type: "system"}
 		],
 	};
 });
