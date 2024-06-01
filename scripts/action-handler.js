@@ -58,38 +58,24 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		 */
 		async #buildAttributeRolls() {
 			const actionTypeId = "attribute";
-			const groupData = { id: "attribute", name: "Attributes", type: "system" };
-			//this.addGroup(groupData,null);
+			const groupData = { id: "attribute", name: game.i18n.localize('tokenActionHud.hooklineandmecha.attribute'), type: "system" };
 			
 			// Get actions
 			const actions = [];
 			for (const attr in this.actor.system.attributes) {
 				if (shouldDisplayAttribute(attr)) {
 					const id = attr;
-					//const name =coreModule.api.Utils.i18n(`attributes.${attr}`)
-					const name=attr;
-					// const actionTypeName = coreModule.api.Utils.i18n(
-					// 	ACTION_TYPE[actionTypeId]
-					// );
-					// const listName = `${
-					// 	actionTypeName ? `${actionTypeName}: ` : ""
-					// }${name}`;
+					const name=game.i18n.localize(`ATTRIBUTES.${attr}`);
 					const encodedValue = [actionTypeId, id].join(this.delimiter);
 					console.log(encodedValue);
 					actions.push({
 						id,
 						name,
-						//listName,
 						encodedValue,
 					});
 				}
 			}
-			console.log("Actions:");
-			console.log(actions);
-			console.log("Group:");
-			console.log(groupData);
 			this.addActions(actions, groupData);
-			console.log(this);
 		}
 
 		/**
