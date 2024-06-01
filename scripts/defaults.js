@@ -17,34 +17,17 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 	DEFAULTS = {
 		layout: [
 			{
-				nestId: "rolled",
-				id: "rolled",
-				name: coreModule.api.Utils.i18n("Rolled"),
+				nestId: "attribute",
+				id: "attribute",
+				name: "Attributes",
+				type: "system",
 				groups: [
-					{...groups.close, nestId: "rolled_close"},
-					{...groups.far, nestId: "rolled_far"},
-					{...groups.mental, nestId: "rolled_mental"},
-					{...groups.power, nestId: "rolled_power"},
-				],
-			},
-			{
-				nestId: "flat",
-				id: "flat",
-				name: coreModule.api.Utils.i18n("Flat"),
-				groups: [{...groups.flat, nestId: "flat_flat"}],
-			},
-			{
-				nestId: "utility",
-				id: "utility",
-				name: coreModule.api.Utils.i18n("tokenActionHud.utility"),
-				groups: [
-					{...groups.combat, nestId: "utility_combat"},
-					{...groups.token, nestId: "utility_token"},
-					{...groups.rests, nestId: "utility_rests"},
-					{...groups.utility, nestId: "utility_utility"},
-				],
-			},
+					{id: "attribute", name: "Attributes", type: "system",nestId: "attribute_attribute"}
+				]
+			}
 		],
-		groups: groupsArray,
+		groups: [
+			{id: "attribute", name: "Attributes", type: "system"}
+		],
 	};
 });

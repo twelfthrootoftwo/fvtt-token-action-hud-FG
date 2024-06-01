@@ -20,9 +20,6 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 			this.actors = !this.actor ? this._getActors() : [this.actor];
 			this.actorType = this.actor?.type;
 
-			// Settings
-			this.displayUnequipped = Utils.getSetting("displayUnequipped");
-
 			// Set items variable
 			if (this.actor) {
 				let items = this.actor.items;
@@ -33,11 +30,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 			if (this.actorType === "fisher" || this.actorType === "fish") {
 				this.#buildCharacterActions();
 			} else if (!this.actor) {
-				//Not supported
-				//this.#buildMultipleTokenActions()
-				console.log(
-					"Token Action HUD not supported for multiple tokens"
-				);
+				this.#buildMultipleTokenActions();
 			}
 		}
 
@@ -46,8 +39,17 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		 * @private
 		 */
 		#buildCharacterActions() {
+			// switch(this.actorType) {
+			// 	case "fisher":
+			// 		this.#buildFisherActions();
+			// 		break;
+			// 	case "fish":
+			// 		this.#buildFishActions();
+			// 		break;
+			// }
 			this.#buildAttributeRolls();
-			this.#buildFlatAttributes();
+			//this.#buildWeaponInternals();
+			//this.#buildActiveInternals();
 		}
 
 		/**
@@ -55,75 +57,74 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		 * @private
 		 */
 		async #buildAttributeRolls() {
-			const actionTypeId = "rolled";
-			const rolledMap = new Map();
-
-			for (const attr in this.actor.system.attributes.rolled) {
-				const attribute = this.actor.system.attributes.rolled[attr];
-				const attributeMap = new Map();
-				for (let i = 1; i < 4; i++) {
-					const label = i.toString() + "d6";
-					attributeMap.set(label, attr + ":" + label);
+			const actionTypeId = "attribute";
+			const groupData = { id: "attribute", name: "Attributes", type: "system" };
+			//this.addGroup(groupData,null);
+			
+			// Get actions
+			const actions = [];
+			for (const attr in this.actor.system.attributes) {
+				if (shouldDisplayAttribute(attr)) {
+					const id = attr;
+					//const name =coreModule.api.Utils.i18n(`attributes.${attr}`)
+					const name=attr;
+					// const actionTypeName = coreModule.api.Utils.i18n(
+					// 	ACTION_TYPE[actionTypeId]
+					// );
+					// const listName = `${
+					// 	actionTypeName ? `${actionTypeName}: ` : ""
+					// }${name}`;
+					const encodedValue = [actionTypeId, id].join(this.delimiter);
+					console.log(encodedValue);
+					actions.push({
+						id,
+						name,
+						//listName,
+						encodedValue,
+					});
 				}
-				rolledMap.set(attribute.key, attributeMap);
 			}
-
-			for (const [attr, attrMap] of rolledMap) {
-				const groupId = attr;
-				const groupData = {id: groupId, type: "system"};
-
-				const actions = [...attrMap].map(
-					([actionLabel, actionData]) => {
-						const id = actionData;
-						const name = actionLabel;
-
-						const actionTypeName = coreModule.api.Utils.i18n(
-							ACTION_TYPE[actionTypeId]
-						);
-						const listName = `${
-							actionTypeName ? `${actionTypeName}: ` : ""
-						}${name}`;
-						const encodedValue = [actionTypeId, id].join(
-							this.delimiter
-						);
-
-						return {
-							id,
-							name,
-							listName,
-							encodedValue,
-						};
-					}
-				);
-				this.addActions(actions, groupData);
-			}
+			console.log("Actions:");
+			console.log(actions);
+			console.log("Group:");
+			console.log(groupData);
+			this.addActions(actions, groupData);
+			console.log(this);
 		}
 
 		/**
-		 * Build non-rolled attributes
+		 * Build weapons
 		 * @private
 		 */
-		async #buildFlatAttributes() {
-			const groupData = {id: "flat", type: "system"};
-			const id = "flat";
-			const name = "Flat";
-			const listName = coreModule.api.Utils.i18n(ACTION_TYPE[id]);
-			const encodedValue = [id, id].join(this.delimiter);
-			const tooltip = this.actor.getFlatAttributeString();
-			const flatAction = {
-				id,
-				name,
-				listName,
-				encodedValue,
-				tooltip: tooltip,
-			};
-			this.addActions([flatAction], groupData);
-		}
+		async #buildWeaponInternals() {}
 
 		/**
-		 * Build utilities
+		 * Build other active internals
 		 * @private
 		 */
-		async #buildUtilities() {}
+		async #buildActiveInternals() {}
+
+		/**
+		 * Build other fisher actions
+		 * @private
+		 */
+		async #buildFisherActions() {}
+
+		/**
+		 * Build other fish actions
+		 * @private
+		 */
+		async #buildFishActions() {}
+
+		/**
+		 * Build other fish actions
+		 * @private
+		 */
+		async #buildMultipleTokenActions() {}
 	};
 });
+
+function shouldDisplayAttribute(attr) {
+	const toDisplay=["close","far","mental","power"];
+	return toDisplay.includes(attr);
+}

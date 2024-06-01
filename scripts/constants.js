@@ -21,38 +21,33 @@ export const REQUIRED_CORE_MODULE_VERSION = "1.5";
  * Action types
  */
 export const ACTION_TYPE = {
-	rolled: "Rolled",
-	flat: "Flat",
-	utility: "tokenActionHud.utility",
+	attribute: "tokenActionHud.attribute",
+	weapon: "tokenActionHud.weapon",
+	active: "tokenActionHud.active",
 };
 
 /**
  * Groups
  */
 export const GROUP = {
-	close: {
-		id: "close",
-		name: "Close",
+	attribute: {
+		id: "attribute",
+		name: "tokenActionHud.active",
 		type: "system",
 	},
-	far: {
-		id: "far",
-		name: "Far",
+	weapon: {
+		id: "weapon",
+		name: "tokenActionHud.weapon",
 		type: "system",
 	},
-	mental: {
-		id: "mental",
-		name: "Mental",
+	active: {
+		id: "active",
+		name: "tokenActionHud.active",
 		type: "system",
 	},
-	power: {
-		id: "power",
-		name: "Power",
-		type: "system",
-	},
-	flat: {
-		id: "flat",
-		name: "Flat",
+	utils: {
+		id: "utils",
+		name: "tokenActionHud.util",
 		type: "system",
 	},
 };

@@ -1,20 +1,18 @@
 {
   "tokenActionHud": {
-    "template": {
-      "armor": "Armor",
-      "containers": "Containers",
-      "consumables": "Consumables",
-      "equipment": "Equipment",
-      "inventory": "Inventory",
-      "item": "Item",
-      "weapons": "Weapons",
-      "treasure": "Treasure",
-      "settings": {
-        "displayUnequipped": {
-          "hint": "Choose whether to display unequipped items on the HUD",
-          "name": "Display Unequipped"
-        }
-      }
+    "hooklineandmecha": {
+      "attribute": "Attributes",
+      "attributeLabels": {
+        "close": "Close",
+        "far": "Far",
+        "mental": "Mental",
+        "power": "Power"
+      },
+      "weapon": "Weapons",
+      "active": "Active Internals",
+      "reel": "Reel",
+      "scan": "Scan",
+      "util": "Utilities"
     }
   }
 }

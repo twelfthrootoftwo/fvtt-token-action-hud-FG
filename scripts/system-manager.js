@@ -19,7 +19,10 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		 * @returns {class} The ActionHandler instance
 		 */
 		getActionHandler() {
-			return new ActionHandler();
+			const handler=new ActionHandler();
+			console.log("Action handler:")
+			console.log(handler);
+			return handler;
 		}
 
 		/**
@@ -50,6 +53,8 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 					rollHandler = new Core();
 					break;
 			}
+			console.log("Roll handler:")
+			console.log(rollHandler);
 			return rollHandler;
 		}
 

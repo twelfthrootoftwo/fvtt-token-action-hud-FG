@@ -14,6 +14,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		 */
 		async handleActionClick(event, encodedValue) {
 			const payload = encodedValue.split("|");
+			console.log(payload);
 
 			if (payload.length < 2) {
 				super.throwInvalidValueErr();
@@ -22,7 +23,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 			const actionTypeId = payload[0];
 			const actionId = payload[1];
 
-			const renderable = ["rolled", "flat"];
+			const renderable = ["attribute"];
 
 			if (renderable.includes(actionTypeId) && this.isRenderItem()) {
 				return this.doRenderItem(this.actor, actionId);
@@ -41,8 +42,6 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				);
 				return;
 			}
-
-			//Multiple actors not supported
 		}
 
 		/**
@@ -56,11 +55,9 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		 */
 		async #handleAction(event, actor, token, actionTypeId, actionId) {
 			switch (actionTypeId) {
-				case "rolled":
+				case "attribute":
 					this.#handleRollAction(event, actor, actionId);
 					break;
-				case "flat":
-					this.#handleFlatAction(event, actor, actionId);
 			}
 		}
 
@@ -69,25 +66,10 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		 * @private
 		 * @param {object} event    The event
 		 * @param {object} actor    The actor
-		 * @param {string} actionId The action id
+		 * @param {string} attributeKey The attribute to trigger
 		 */
-		#handleRollAction(event, actor, actionId) {
-			const rollDetails = actionId.split(":");
-			const diceDetails = rollDetails[1].split("d");
-			//TODO: make this an actual function
-			actor.rollAttribute(rollDetails[0], diceDetails[0], diceDetails[1]);
-		}
-
-		/**
-		 * Handle flat attribute click
-		 * @private
-		 * @param {object} event    The event
-		 * @param {object} actor    The actor
-		 * @param {string} actionId The action id
-		 */
-		async #handleFlatAction(event, actor, actionId) {
-			//TODO: make this an actual function
-			await actor.shareFlatAttributes();
+		#handleRollAction(event, actor, attributeKey) {
+			actor.startRollDialog(attributeKey);
 		}
 	};
 });
