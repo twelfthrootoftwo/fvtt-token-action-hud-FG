@@ -8,10 +8,10 @@ import {MODULE} from "./constants.js";
 export function register(coreUpdate) {
 	game.settings.register(MODULE.ID, "displayUnequipped", {
 		name: game.i18n.localize(
-			"tokenActionHud.hlm.settings.displayUnequipped.name"
+			"tokenActionHud.fathomlessgears.settings.displayUnequipped.name"
 		),
 		hint: game.i18n.localize(
-			"tokenActionHud.hlm.settings.displayUnequipped.hint"
+			"tokenActionHud.fathomlessgears.settings.displayUnequipped.hint"
 		),
 		scope: "client",
 		config: true,

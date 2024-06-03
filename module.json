@@ -1,6 +1,6 @@
 {
-	"id": "token-action-hud-HLM",
-	"title": "Token Action HUD HLM",
+	"id": "token-action-hud-FG",
+	"title": "Token Action HUD FG",
 	"description": "Token Action HUD is a repositionable HUD of actions for a selected token",
 	"authors": [
 		{
@@ -28,12 +28,12 @@
 	"relationships": {
 		"systems": [
 			{
-				"id": "hooklineandmecha",
+				"id": "fathomlessgears",
 				"type": "system",
 				"compatibility": [
 					{
-						"minimum": "0.0.1",
-						"verified": "0.1"
+						"minimum": "0.2",
+						"verified": "0.2"
 					}
 				]
 			}
