@@ -11,7 +11,7 @@
 	"flags": {},
 	"version": "0.0.1",
 	"compatibility": {
-		"minimum": "10",
+		"minimum": "11",
 		"verified": "11.313"
 	},
 	"esmodules": ["./scripts/init.js"],
