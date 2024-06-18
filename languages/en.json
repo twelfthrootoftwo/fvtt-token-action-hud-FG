@@ -10,9 +10,11 @@
       },
       "internal": "Internals",
       "reel": "Reel",
-      "scan": "Scan",
+      "scanThis": "Mark/Revoke Scanned",
+      "scanAction": "Scan Target",
       "utility": "Utilities",
-      "weightTotal": "Weight total"
+      "weightTotal": "Weight total",
+      "standard": "Standard Actions"
     }
   }
 }

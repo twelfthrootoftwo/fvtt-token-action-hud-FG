@@ -68,6 +68,8 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				case "passive":
 					this.#handleInternal(event, actor, actionId);
 					break;
+				case "standard":
+					this.#handleStandardAction(event, actor, actionId);
 				case "utility":
 					this.#handleUtils(event, actor, actionId);
 					break;
@@ -93,7 +95,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 
 		#handleUtils(event, actor, actionId) {
 			switch(actionId) {
-				case "scan":
+				case "scanThis":
 					actor.toggleScan();
 					break;
 				case "weightTotal":
@@ -104,6 +106,16 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 					break;
 				default:
 					console.log(`Util action code not recognised: ${actionId}`)
+			}
+		}
+
+		#handleStandardAction(event, actor, actionId) {
+			switch(actionId) {
+				case "scanAction":
+					actor.scanTarget();
+					break;
+				default:
+					console.log(`Standard action code not recognised: ${actionId}`)
 			}
 		}
 

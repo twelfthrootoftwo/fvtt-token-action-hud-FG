@@ -37,6 +37,15 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				]
 			},
 			{
+				nestId: "standard",
+				id: "standard",
+				name: game.i18n.localize("tokenActionHud.fathomlessgears.standard"),
+				type: "system",
+				groups: [
+					{id: "standard", name: game.i18n.localize("tokenActionHud.fathomlessgears.standard"), type: "system", nestId: "standard_standard"}
+				]
+			},
+			{
 				nestId: "utility",
 				id: "utility",
 				name: game.i18n.localize("tokenActionHud.fathomlessgears.utility"),
@@ -51,7 +60,8 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 			{id: "weapon", name: game.i18n.localize("INTERNALS.weapons"), type: "system"},
 			{id: "active", name: game.i18n.localize("INTERNALS.active"), type: "system"},
 			{id: "passive", name: game.i18n.localize("INTERNALS.passive"), type: "system"},
-			{id: "utility", name: game.i18n.localize("tokenActionHud.fathomlessgears.utility"), type: "system"}
+			{id: "utility", name: game.i18n.localize("tokenActionHud.fathomlessgears.utility"), type: "system"},
+			{id: "standard", name: game.i18n.localize("tokenActionHud.fathomlessgears.standard"), type: "system"}
 		],
 	};
 });
