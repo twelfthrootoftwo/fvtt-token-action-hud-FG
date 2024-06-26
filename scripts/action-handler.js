@@ -177,11 +177,18 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		 * @private
 		 */
 		async #buildFisherActions() {
-			const actionTypeId = "utility";
-			const groupData = { id: "utility", name: game.i18n.localize("tokenActionHud.fathomlessgears.utility"), type: "system" };
+			let actionTypeId = "utility";
+			let groupData = { id: "utility", name: game.i18n.localize("tokenActionHud.fathomlessgears.utility"), type: "system" };
 
-			const actions=[];
+			let actions=[];
 			actions.push(await this.constructHitLocation(actionTypeId));
+			this.addActions(actions, groupData);
+
+			actionTypeId = "standard";
+			groupData = { id: "standard", name: game.i18n.localize("tokenActionHud.fathomlessgears.standard"), type: "system" };
+
+			actions=[];
+			actions.push(await this.constructScanAction(actionTypeId));
 			this.addActions(actions, groupData);
 		}
 
@@ -215,9 +222,9 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		}
 
 		async constructScan(actionTypeId) {
-			const id="scan"
+			const id="scanThis"
 			//const name=await this.actor.getScanText();
-			const name=game.i18n.localize("tokenActionHud.fathomlessgears.scan");
+			const name=game.i18n.localize("tokenActionHud.fathomlessgears.scanThis");
 			const encodedValue = [actionTypeId, id].join(this.delimiter);
 		
 			return {id, name, encodedValue}
@@ -234,6 +241,14 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		async constructHitLocation(actionTypeId) {
 			let id="hitLocation"
 			let name=game.i18n.localize("SHEET.hitlocation");
+			let encodedValue = [actionTypeId, id].join(this.delimiter);
+		
+			return {id, name, encodedValue}
+		}
+
+		async constructScanAction(actionTypeId) {
+			let id="scanAction"
+			let name=game.i18n.localize("tokenActionHud.fathomlessgears.scanAction");
 			let encodedValue = [actionTypeId, id].join(this.delimiter);
 		
 			return {id, name, encodedValue}
