@@ -1,7 +1,7 @@
 {
 	"id": "token-action-hud-FG",
 	"title": "Token Action HUD FG",
-	"description": "Token Action HUD is a repositionable HUD of actions for a selected token",
+	"description": "Token Action HUD for Fathomless Gears (included in the Fathomless Gears system)",
 	"authors": [
 		{
 			"name": "Twelfth",
@@ -9,10 +9,10 @@
 		}
 	],
 	"flags": {},
-	"version": "0.0.1",
+	"version": "#{VERSION}#",
 	"compatibility": {
 		"minimum": "11",
-		"verified": "11.313"
+		"verified": "11.315"
 	},
 	"esmodules": ["./scripts/init.js"],
 	"scripts": [],
@@ -57,9 +57,9 @@
 		}
 	},
 	"socket": false,
-	"manifest": "This is auto replaced",
-	"download": "This is auto replaced",
-	"readme": "https://github.com/Larkinabout/fvtt-token-action-hud-template#readme",
+	"url": "#{URL}#",
+	"manifest": "#{MANIFEST}#",
+	"download": "#{DOWNLOAD}#",
 	"protected": false,
 	"coreTranslation": false,
 	"library": false
