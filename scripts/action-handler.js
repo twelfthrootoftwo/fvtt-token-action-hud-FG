@@ -83,8 +83,8 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 			const internals=this.items["internal_pc"].concat(this.items["internal_npc"]);
 			internals.forEach((internal) => {
 				switch(internal.system.type) {
-					case "melee":
-					case "ranged":
+					case "close":
+					case "far":
 					case "mental":
 						weapons.push(internal);
 						break;
