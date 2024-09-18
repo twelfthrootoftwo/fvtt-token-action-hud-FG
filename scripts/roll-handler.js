@@ -86,7 +86,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		 * @param {string} attributeKey The attribute to trigger
 		 */
 		#handleRollAction(event, actor, attributeKey) {
-			actor.startRollDialog(attributeKey);
+			game.rollHandler.startRollDialog(actor, attributeKey);
 		}
 
 		#handleInternal(event, actor, internalId) {
