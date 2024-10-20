@@ -24,6 +24,7 @@ export const ACTION_TYPE = {
 	attribute: "tokenActionHud.attribute",
 	weapon: "tokenActionHud.weapon",
 	active: "tokenActionHud.active",
+	development: "tokenActionHud.development",
 };
 
 /**
@@ -43,6 +44,21 @@ export const GROUP = {
 	active: {
 		id: "active",
 		name: "tokenActionHud.active",
+		type: "system",
+	},
+	development: {
+		id: "development",
+		name: "tokenActionHud.development",
+		type: "system",
+	},
+	maneuver: {
+		id: "maneuver",
+		name: "tokenActionHud.maneuver",
+		type: "system",
+	},
+	word: {
+		id: "word",
+		name: "tokenActionHud.word",
 		type: "system",
 	},
 	utils: {

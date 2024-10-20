@@ -37,6 +37,17 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				]
 			},
 			{
+				nestId: "fisher",
+				id: "fisher",
+				name: game.i18n.localize("tokenActionHud.fathomlessgears.fisher"),
+				type: "system",
+				groups: [
+					{id: "development", name: game.i18n.localize("tokenActionHud.fathomlessgears.development"), type: "system",nestId: "fisher_development"},
+					{id: "maneuver", name: game.i18n.localize("tokenActionHud.fathomlessgears.maneuver"), type: "system",nestId: "fisher_maneuver"},
+					{id: "word", name: game.i18n.localize("tokenActionHud.fathomlessgears.word"), type: "system",nestId: "fisher_word"},
+				]
+			},
+			{
 				nestId: "standard",
 				id: "standard",
 				name: game.i18n.localize("tokenActionHud.fathomlessgears.standard"),

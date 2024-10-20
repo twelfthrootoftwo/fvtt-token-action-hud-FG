@@ -66,7 +66,10 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				case "weapon":
 				case "active":
 				case "passive":
-					this.#handleInternal(event, actor, actionId);
+				case "development":
+				case "maneuver":
+				case "word":
+					this.#handleItem(event, actor, actionId);
 					break;
 				case "standard":
 					this.#handleStandardAction(event, actor, actionId);
@@ -89,8 +92,8 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 			game.rollHandler.startRollDialog(actor, attributeKey);
 		}
 
-		#handleInternal(event, actor, internalId) {
-			actor.postInternal(internalId);
+		#handleItem(event, actor, itemId) {
+			actor.postItem(itemId);
 		}
 
 		#handleUtils(event, actor, actionId) {

@@ -179,17 +179,60 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		async #buildFisherActions() {
 			let actionTypeId = "utility";
 			let groupData = { id: "utility", name: game.i18n.localize("tokenActionHud.fathomlessgears.utility"), type: "system" };
-
 			let actions=[];
 			actions.push(await this.constructHitLocation(actionTypeId));
 			this.addActions(actions, groupData);
 
 			actionTypeId = "standard";
 			groupData = { id: "standard", name: game.i18n.localize("tokenActionHud.fathomlessgears.standard"), type: "system" };
-
 			actions=[];
 			actions.push(await this.constructScanAction(actionTypeId));
 			this.addActions(actions, groupData);
+
+			actionTypeId = "development";
+			groupData = { id: "development", name: game.i18n.localize("tokenActionHud.fathomlessgears.development"), type: "system" };
+			actions=[];
+			for(let item of this.items["development"]) {
+				const id=item._id;
+				const name=item.name;
+				const encodedValue = [actionTypeId, id].join(this.delimiter);
+				actions.push({
+					id,
+					name,
+					encodedValue,
+				});
+			}
+			if(actions.length>0) this.addActions(actions, groupData);
+
+			actionTypeId = "maneuver";
+			groupData = { id: "maneuver", name: game.i18n.localize("tokenActionHud.fathomlessgears.maneuver"), type: "system" };
+			actions=[];
+			for(let item of this.items["maneuver"]) {
+				const id=item._id;
+				const name=item.name;
+				const encodedValue = [actionTypeId, id].join(this.delimiter);
+				actions.push({
+					id,
+					name,
+					encodedValue,
+				});
+			}
+			if(actions.length>0) this.addActions(actions, groupData);
+
+			actionTypeId = "word";
+			groupData = { id: "word", name: game.i18n.localize("tokenActionHud.fathomlessgears.word"), type: "system" };
+			actions=[];
+			for(let item of this.items["deep_word"]) {
+				const id=item._id;
+				const name=item.name;
+				const encodedValue = [actionTypeId, id].join(this.delimiter);
+				actions.push({
+					id,
+					name,
+					encodedValue,
+				});
+			}
+			if(actions.length>0) this.addActions(actions, groupData);
 		}
 
 		/**
