@@ -240,14 +240,29 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		 * @private
 		 */
 		async #buildFishActions() {
-			const actionTypeId = "utility";
-			const groupData = { id: "utility", name: game.i18n.localize("tokenActionHud.fathomlessgears.utility"), type: "system" };
+			let actionTypeId = "utility";
+			let groupData = { id: "utility", name: game.i18n.localize("tokenActionHud.fathomlessgears.utility"), type: "system" };
 
-			const actions=[];
+			let actions=[];
 			actions.push(await this.constructScan(actionTypeId));
 			actions.push(await this.constructHitLocation(actionTypeId));
 			actions.push(await this.constructWeightTotal(actionTypeId));
 			this.addActions(actions, groupData);
+
+			actionTypeId = "word";
+			groupData = { id: "word", name: game.i18n.localize("tokenActionHud.fathomlessgears.word"), type: "system" };
+			actions=[];
+			for(let item of this.items["deep_word"]) {
+				const id=item._id;
+				const name=item.name;
+				const encodedValue = [actionTypeId, id].join(this.delimiter);
+				actions.push({
+					id,
+					name,
+					encodedValue,
+				});
+			}
+			if(actions.length>0) this.addActions(actions, groupData);
 		}
 
 		/**
