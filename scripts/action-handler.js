@@ -247,6 +247,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 			actions.push(await this.constructScan(actionTypeId));
 			actions.push(await this.constructHitLocation(actionTypeId));
 			actions.push(await this.constructWeightTotal(actionTypeId));
+			actions.push(this.constructBallastTokens(actionTypeId));
 			this.addActions(actions, groupData);
 
 			actionTypeId = "word";
@@ -273,9 +274,9 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 			const actionTypeId = "utility";
 			const groupData = { id: "utility", name: game.i18n.localize("tokenActionHud.fathomlessgears.utility"), type: "system" };
 
-			//Weight total
-			const actions=[];
-			actions.push(await this.constructWeightTotal(actionTypeId));
+			let actions=[];
+			actions.push(this.constructWeightTotal(actionTypeId));
+			actions.push(this.constructBallastTokens(actionTypeId));
 			this.addActions(actions, groupData);
 		}
 
@@ -288,7 +289,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 			return {id, name, encodedValue}
 		}
 		
-		async constructWeightTotal(actionTypeId) {
+		constructWeightTotal(actionTypeId) {
 			let id="weightTotal"
 			let name=game.i18n.localize("tokenActionHud.fathomlessgears.weightTotal");
 			let encodedValue = [actionTypeId, id].join(this.delimiter);
@@ -307,6 +308,14 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		async constructScanAction(actionTypeId) {
 			let id="scanAction"
 			let name=game.i18n.localize("tokenActionHud.fathomlessgears.scanAction");
+			let encodedValue = [actionTypeId, id].join(this.delimiter);
+		
+			return {id, name, encodedValue}
+		}
+
+		constructBallastTokens(actionTypeId) {
+			let id="ballastTokens"
+			let name=game.i18n.localize("tokenActionHud.fathomlessgears.ballastTokens");
 			let encodedValue = [actionTypeId, id].join(this.delimiter);
 		
 			return {id, name, encodedValue}

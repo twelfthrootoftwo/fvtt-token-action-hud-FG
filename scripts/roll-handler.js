@@ -107,6 +107,9 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				case "hitLocation":
 					actor.locationHitMessage();
 					break;
+				case "ballastTokens":
+					this.#handleBallastTokens();
+					break;
 				default:
 					console.log(`Util action code not recognised: ${actionId}`)
 			}
@@ -126,17 +129,26 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 			switch(actionId) {
 				case "weightTotal":
 					this.#handleWeightTotal();
+					break;
+				case "ballastTokens":
+					this.#handleBallastTokens();
+					break;
 				default:
 					console.log(`Collective action code not recognised: ${actionId}`)
 			}
 		}
 
 		async #handleWeightTotal() {
-			const macroCollection=await game.packs.find(p => p.metadata.name === "core_macros");
-			const macroRecord = macroCollection.index.filter(p => p.name = "Weight Calculator");
-			const macro=await macroCollection.getDocument(macroRecord[0]._id);
+			// const macroCollection=await game.packs.find(p => p.metadata.name === "core_macros");
+			// const macroRecord = macroCollection.index.filter(p => p.name = "Weight Calculator");
+			// const macro=await macroCollection.getDocument(macroRecord[0]._id);
 
-			macro.execute();
+			// macro.execute();
+			game.hudActions?.weightTotal();
+		}
+
+		async #handleBallastTokens() {
+			game.hudActions?.createBallastTokens();
 		}
 	};
 });
