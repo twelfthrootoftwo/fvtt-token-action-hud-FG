@@ -181,6 +181,10 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 			let groupData = { id: "utility", name: game.i18n.localize("tokenActionHud.fathomlessgears.utility"), type: "system" };
 			let actions=[];
 			actions.push(await this.constructHitLocation(actionTypeId));
+			if(game.sensitiveDataAvailable) {
+				actions.push(await this.constructInjuryRoll(actionTypeId));
+				actions.push(await this.constructTouchOfTheDeep(actionTypeId));
+			}
 			this.addActions(actions, groupData);
 
 			actionTypeId = "standard";
@@ -316,6 +320,22 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		constructBallastTokens(actionTypeId) {
 			let id="ballastTokens"
 			let name=game.i18n.localize("tokenActionHud.fathomlessgears.ballastTokens");
+			let encodedValue = [actionTypeId, id].join(this.delimiter);
+		
+			return {id, name, encodedValue}
+		}
+
+		constructInjuryRoll(actionTypeId) {
+			let id="injuryRoll"
+			let name=game.i18n.localize("tokenActionHud.fathomlessgears.injuryRoll");
+			let encodedValue = [actionTypeId, id].join(this.delimiter);
+		
+			return {id, name, encodedValue}
+		}
+
+		constructTouchOfTheDeep(actionTypeId) {
+			let id="touchRoll"
+			let name=game.i18n.localize("tokenActionHud.fathomlessgears.touchRoll");
 			let encodedValue = [actionTypeId, id].join(this.delimiter);
 		
 			return {id, name, encodedValue}

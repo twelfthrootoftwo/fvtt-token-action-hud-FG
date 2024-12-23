@@ -19,7 +19,9 @@
       "maneuver": "Maneuvers",
       "word": "Deep words",
       "fisher": "Fisher Advancements",
-      "ballastTokens": "Create ballast token"
+      "ballastTokens": "Create Ballast Token",
+      "injuryRoll": "Roll Injury Table",
+      "touchRoll": "Roll TOuch of the Deep"
     }
   }
 }

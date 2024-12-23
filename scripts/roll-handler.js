@@ -110,6 +110,12 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				case "ballastTokens":
 					this.#handleBallastTokens();
 					break;
+				case "injuryRoll":
+					this.#handleInjuryRoll();
+					break;
+				case "touchRoll":
+					this.#handleTouchRoll();
+					break;
 				default:
 					console.log(`Util action code not recognised: ${actionId}`)
 			}
@@ -149,6 +155,14 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 
 		async #handleBallastTokens() {
 			game.hudActions?.createBallastTokens();
+		}
+
+		async #handleInjuryRoll() {
+			game.rollTables?.rollInjury();
+		}
+
+		async #handleTouchRoll() {
+			game.rollTables?.rollTouch();
 		}
 	};
 });
