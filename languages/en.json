@@ -21,7 +21,8 @@
       "fisher": "Fisher Advancements",
       "ballastTokens": "Create Ballast Token",
       "injuryRoll": "Roll Injury Table",
-      "touchRoll": "Roll TOuch of the Deep"
+      "touchRoll": "Roll Touch of the Deep",
+      "meltdownRoll": "Roll Meltdown"
     }
   }
 }

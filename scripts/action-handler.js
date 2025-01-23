@@ -184,6 +184,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 			if(game.sensitiveDataAvailable) {
 				actions.push(await this.constructInjuryRoll(actionTypeId));
 				actions.push(await this.constructTouchOfTheDeep(actionTypeId));
+				actions.push(await this.constructMeltdown(actionTypeId));
 			}
 			this.addActions(actions, groupData);
 
@@ -336,6 +337,14 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		constructTouchOfTheDeep(actionTypeId) {
 			let id="touchRoll"
 			let name=game.i18n.localize("tokenActionHud.fathomlessgears.touchRoll");
+			let encodedValue = [actionTypeId, id].join(this.delimiter);
+		
+			return {id, name, encodedValue}
+		}
+
+		constructMeltdown(actionTypeId) {
+			let id="meltdownRoll"
+			let name=game.i18n.localize("tokenActionHud.fathomlessgears.meltdownRoll");
 			let encodedValue = [actionTypeId, id].join(this.delimiter);
 		
 			return {id, name, encodedValue}

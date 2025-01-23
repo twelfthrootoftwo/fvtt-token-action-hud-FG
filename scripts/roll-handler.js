@@ -116,6 +116,9 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				case "touchRoll":
 					this.#handleTouchRoll();
 					break;
+				case "meltdownRoll":
+					this.#handleMeltdownRoll();
+					break;
 				default:
 					console.log(`Util action code not recognised: ${actionId}`)
 			}
@@ -145,11 +148,6 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		}
 
 		async #handleWeightTotal() {
-			// const macroCollection=await game.packs.find(p => p.metadata.name === "core_macros");
-			// const macroRecord = macroCollection.index.filter(p => p.name = "Weight Calculator");
-			// const macro=await macroCollection.getDocument(macroRecord[0]._id);
-
-			// macro.execute();
 			game.hudActions?.weightTotal();
 		}
 
@@ -163,6 +161,10 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 
 		async #handleTouchRoll() {
 			game.rollTables?.rollTouch();
+		}
+
+		async #handleMeltdownRoll() {
+			game.rollTables?.rollMeltdown();
 		}
 	};
 });
