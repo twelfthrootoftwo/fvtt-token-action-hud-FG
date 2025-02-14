@@ -23,7 +23,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 			if (this.actor) {
 				this.items = this.actor.itemTypes;
 				if (this.actorType === "fisher" || this.actorType === "fish") {
-					this.#buildCharacterActions();
+					await this.#buildCharacterActions();
 				}
 			} else {
 				this.#buildMultipleTokenActions();
@@ -34,17 +34,18 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		 * Build character actions
 		 * @private
 		 */
-		#buildCharacterActions() {
+		async #buildCharacterActions() {
 			switch(this.actorType) {
 				case "fisher":
-					this.#buildFisherActions();
+					await this.#buildFisherActions();
 					break;
 				case "fish":
 					this.#buildFishActions();
 					break;
 			}
-			this.#buildAttributeRolls();
-			this.#buildInternals();
+			await this.#buildAttributeRolls();
+			await this.#buildInternals();
+			await this.#buildWords();
 		}
 
 		/**
@@ -98,9 +99,9 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				}
 			})
 
-			this.#buildWeaponInternals(weapons);
-			this.#buildActiveInternals(active);
-			this.#buildPassiveInternals(passive);
+			await this.#buildWeaponInternals(weapons);
+			await this.#buildActiveInternals(active);
+			await this.#buildPassiveInternals(passive);
 		}
 
 		/**
@@ -180,23 +181,28 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 			let actionTypeId = "utility";
 			let groupData = { id: "utility", name: game.i18n.localize("tokenActionHud.fathomlessgears.utility"), type: "system" };
 			let actions=[];
-			actions.push(await this.constructHitLocation(actionTypeId));
+			actions.push(this.constructHitLocation(actionTypeId));
 			if(game.sensitiveDataAvailable) {
-				actions.push(await this.constructInjuryRoll(actionTypeId));
-				actions.push(await this.constructTouchOfTheDeep(actionTypeId));
-				actions.push(await this.constructMeltdown(actionTypeId));
+				actions.push(this.constructInjuryRoll(actionTypeId));
+				actions.push(this.constructTouchOfTheDeep(actionTypeId));
+				actions.push(this.constructMeltdown(actionTypeId));
 			}
 			this.addActions(actions, groupData);
 
 			actionTypeId = "standard";
 			groupData = { id: "standard", name: game.i18n.localize("tokenActionHud.fathomlessgears.standard"), type: "system" };
 			actions=[];
-			actions.push(await this.constructScanAction(actionTypeId));
+			actions.push(this.constructScanAction(actionTypeId));
 			this.addActions(actions, groupData);
 
-			actionTypeId = "development";
-			groupData = { id: "development", name: game.i18n.localize("tokenActionHud.fathomlessgears.development"), type: "system" };
-			actions=[];
+			await this.#buildDevelopments();
+			await this.#buildManeuvers();
+		}
+
+		async #buildDevelopments() {
+			let actionTypeId = "development";
+			let groupData = { id: "development", name: game.i18n.localize("tokenActionHud.fathomlessgears.development"), type: "system" };
+			let actions=[];
 			for(let item of this.items["development"]) {
 				const id=item._id;
 				const name=item.name;
@@ -208,26 +214,13 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				});
 			}
 			if(actions.length>0) this.addActions(actions, groupData);
+		}
 
-			actionTypeId = "maneuver";
-			groupData = { id: "maneuver", name: game.i18n.localize("tokenActionHud.fathomlessgears.maneuver"), type: "system" };
-			actions=[];
+		async #buildManeuvers() {
+			let actionTypeId = "maneuver";
+			let groupData = { id: "maneuver", name: game.i18n.localize("tokenActionHud.fathomlessgears.maneuver"), type: "system" };
+			let actions=[];
 			for(let item of this.items["maneuver"]) {
-				const id=item._id;
-				const name=item.name;
-				const encodedValue = [actionTypeId, id].join(this.delimiter);
-				actions.push({
-					id,
-					name,
-					encodedValue,
-				});
-			}
-			if(actions.length>0) this.addActions(actions, groupData);
-
-			actionTypeId = "word";
-			groupData = { id: "word", name: game.i18n.localize("tokenActionHud.fathomlessgears.word"), type: "system" };
-			actions=[];
-			for(let item of this.items["deep_word"]) {
 				const id=item._id;
 				const name=item.name;
 				const encodedValue = [actionTypeId, id].join(this.delimiter);
@@ -249,26 +242,11 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 			let groupData = { id: "utility", name: game.i18n.localize("tokenActionHud.fathomlessgears.utility"), type: "system" };
 
 			let actions=[];
-			actions.push(await this.constructScan(actionTypeId));
-			actions.push(await this.constructHitLocation(actionTypeId));
-			actions.push(await this.constructWeightTotal(actionTypeId));
+			actions.push(this.constructScan(actionTypeId));
+			actions.push(this.constructHitLocation(actionTypeId));
+			actions.push(this.constructWeightTotal(actionTypeId));
 			actions.push(this.constructBallastTokens(actionTypeId));
 			this.addActions(actions, groupData);
-
-			actionTypeId = "word";
-			groupData = { id: "word", name: game.i18n.localize("tokenActionHud.fathomlessgears.word"), type: "system" };
-			actions=[];
-			for(let item of this.items["deep_word"]) {
-				const id=item._id;
-				const name=item.name;
-				const encodedValue = [actionTypeId, id].join(this.delimiter);
-				actions.push({
-					id,
-					name,
-					encodedValue,
-				});
-			}
-			if(actions.length>0) this.addActions(actions, groupData);
 		}
 
 		/**
@@ -285,7 +263,24 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 			this.addActions(actions, groupData);
 		}
 
-		async constructScan(actionTypeId) {
+		async #buildWords() {
+			let actionTypeId = "word";
+			let groupData = { id: "word", name: game.i18n.localize("tokenActionHud.fathomlessgears.word"), type: "system" };
+			let actions=[];
+			for(let item of this.items["deep_word"]) {
+				const id=item._id;
+				const name=item.name;
+				const encodedValue = [actionTypeId, id].join(this.delimiter);
+				actions.push({
+					id,
+					name,
+					encodedValue,
+				});
+			}
+			if(actions.length>0) this.addActions(actions, groupData);
+		}
+
+		constructScan(actionTypeId) {
 			const id="scanThis"
 			//const name=await this.actor.getScanText();
 			const name=game.i18n.localize("tokenActionHud.fathomlessgears.scanThis");
@@ -302,7 +297,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 			return {id, name, encodedValue}
 		}
 
-		async constructHitLocation(actionTypeId) {
+		constructHitLocation(actionTypeId) {
 			let id="hitLocation"
 			let name=game.i18n.localize("SHEET.hitlocation");
 			let encodedValue = [actionTypeId, id].join(this.delimiter);
@@ -310,7 +305,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 			return {id, name, encodedValue}
 		}
 
-		async constructScanAction(actionTypeId) {
+		constructScanAction(actionTypeId) {
 			let id="scanAction"
 			let name=game.i18n.localize("tokenActionHud.fathomlessgears.scanAction");
 			let encodedValue = [actionTypeId, id].join(this.delimiter);
