@@ -187,6 +187,9 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				actions.push(this.constructTouchOfTheDeep(actionTypeId));
 				actions.push(this.constructMeltdown(actionTypeId));
 			}
+			if (game.user.isGM) {
+				actions.push(this.constructBallastTokens(actionTypeId));
+			}
 			this.addActions(actions, groupData);
 
 			actionTypeId = "standard";
