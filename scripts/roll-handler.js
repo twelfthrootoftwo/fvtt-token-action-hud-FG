@@ -71,10 +71,14 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				case "word":
 					this.#handleItem(event, actor, actionId);
 					break;
-				case "standard":
-					this.#handleStandardAction(event, actor, actionId);
 				case "utility":
 					this.#handleUtils(event, actor, actionId);
+					break;
+				case "basic":
+					this.#handleBasic(event, actor, actionId);
+					break;
+				case "basicAttacks":
+					this.#handleBasicAttacks(event, actor, actionId);
 					break;
 				default:
 					console.log(`Action type code not recognised: ${actionTypeId}`)
@@ -124,13 +128,45 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 			}
 		}
 
-		#handleStandardAction(event, actor, actionId) {
-			switch(actionId) {
+		#handleBasic(event, actor, actionId) {
+			switch (actionId) {
 				case "scanAction":
 					actor.scanTarget();
 					break;
+				case "slip":
+					console.log("Slip");
+					break;
+				case "scrub":
+					console.log("Scrub");
+					break;
+				case "transferLine":
+					console.log("Transfer line");
+					break;
 				default:
-					console.log(`Standard action code not recognised: ${actionId}`)
+					console.log(`Basic action code not recognised: ${actionId}`)
+			}
+		}
+
+		#handleBasicAttacks(event, actor, actionId) {
+			switch (actionId) {
+				case "bash":
+					console.log("Bash")
+					break;
+				case "wrangle":
+					console.log("Wrangle")
+					break;
+				case "push":
+					console.log("Push")
+					break;
+				case "intimidate":
+					console.log("Intimidate")
+					break;
+				case "threatDisplay":
+					console.log("Threat display");
+					break;
+				default:
+					console.log(`Basic action code not recognised: ${actionId}`)
+
 			}
 		}
 
