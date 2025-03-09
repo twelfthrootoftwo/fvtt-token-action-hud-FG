@@ -17,12 +17,14 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 	DEFAULTS = {
 		layout: [
 			{
-				nestId: "attribute",
-				id: "attribute",
-				name: game.i18n.localize("tokenActionHud.fathomlessgears.attribute"),
+				nestId: "basic",
+				id: "basic",
+				name: game.i18n.localize("tokenActionHud.fathomlessgears.basic"),
 				type: "system",
 				groups: [
-					{id: "attribute", name: game.i18n.localize("tokenActionHud.fathomlessgears.attribute"), type: "system",nestId: "attribute_attribute"}
+					{id: "attribute", name: game.i18n.localize("tokenActionHud.fathomlessgears.attribute"), type: "system",nestId: "basic_attribute"},
+					{id: "attacks", name: game.i18n.localize("tokenActionHud.fathomlessgears.attacks"), type: "system",nestId: "basic_attacks"},
+					{id: "other", name: game.i18n.localize("tokenActionHud.fathomlessgears.other"), type: "system",nestId: "basic_other"}
 				]
 			},
 			{
@@ -62,6 +64,8 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				name: game.i18n.localize("tokenActionHud.fathomlessgears.utility"),
 				type: "system",
 				groups: [
+					{id: "encounter", name: game.i18n.localize("tokenActionHud.fathomlessgears.encounter"), type: "system", nestId: "utility_encounter"},
+					{id: "narrative", name: game.i18n.localize("tokenActionHud.fathomlessgears.narrative"), type: "system", nestId: "utility_narrative"},
 					{id: "utility", name: game.i18n.localize("tokenActionHud.fathomlessgears.utility"), type: "system", nestId: "utility_utility"}
 				]
 			},

@@ -178,24 +178,52 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		 * @private
 		 */
 		async #buildFisherActions() {
-			let actionTypeId = "utility";
-			let groupData = { id: "utility", name: game.i18n.localize("tokenActionHud.fathomlessgears.utility"), type: "system" };
+			let actionTypeId = "encounter";
+			let groupData = { id: "encounter", name: game.i18n.localize("tokenActionHud.fathomlessgears.encounter"), type: "system" };
 			let actions=[];
 			actions.push(this.constructHitLocation(actionTypeId));
 			if(game.sensitiveDataAvailable) {
-				actions.push(this.constructInjuryRoll(actionTypeId));
-				actions.push(this.constructTouchOfTheDeep(actionTypeId));
 				actions.push(this.constructMeltdown(actionTypeId));
 			}
+			this.addActions(actions,groupData);
+
+			if (game.sensitiveDataAvailable) {
+				actionTypeId = "narrative";
+				groupData = { id: "narrative", name: game.i18n.localize("tokenActionHud.fathomlessgears.narrative"), type: "system" };
+				actions=[];
+				actions.push(this.constructInjuryRoll(actionTypeId));
+				actions.push(this.constructTouchOfTheDeep(actionTypeId));
+				this.addActions(actions, groupData);
+			}
+
 			if (game.user.isGM) {
+				actionTypeId = "utility";
+				groupData = { id: "utility", name: game.i18n.localize("tokenActionHud.fathomlessgears.utility"), type: "system" };
+				actions=[];
 				actions.push(this.constructBallastTokens(actionTypeId));
+				this.addActions(actions, groupData);
+			}
+
+			actionTypeId = "basic";
+			groupData = { id: "other", name: game.i18n.localize("tokenActionHud.fathomlessgears.other"), type: "system" };
+			actions=[];
+			actions.push(this.constructScanAction(actionTypeId));
+			if(game.sensitiveDataAvailable) {
+				actions.push(this.constructSlipAction(actionTypeId));
+				actions.push(this.constructScrubAction(actionTypeId));
+				actions.push(this.constructTransferAction(actionTypeId));
 			}
 			this.addActions(actions, groupData);
 
-			actionTypeId = "standard";
-			groupData = { id: "standard", name: game.i18n.localize("tokenActionHud.fathomlessgears.standard"), type: "system" };
+			actionTypeId = "basicAttacks";
+			groupData = { id: "attacks", name: game.i18n.localize("tokenActionHud.fathomlessgears.attacks"), type: "system" };
 			actions=[];
-			actions.push(this.constructScanAction(actionTypeId));
+			actions.push(this.constructBashAction(actionTypeId));
+			if(game.sensitiveDataAvailable) {
+				actions.push(this.constructWrangleAction(actionTypeId));
+				actions.push(this.constructPushAction(actionTypeId));
+				actions.push(this.constructIntimidateAction(actionTypeId));
+			}
 			this.addActions(actions, groupData);
 
 			await this.#buildDevelopments();
@@ -241,14 +269,25 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		 * @private
 		 */
 		async #buildFishActions() {
-			let actionTypeId = "utility";
-			let groupData = { id: "utility", name: game.i18n.localize("tokenActionHud.fathomlessgears.utility"), type: "system" };
-
+			let actionTypeId = "encounter";
+			let groupData = { id: "encounter", name: game.i18n.localize("tokenActionHud.fathomlessgears.encounter"), type: "system" };
 			let actions=[];
 			actions.push(this.constructScan(actionTypeId));
 			actions.push(this.constructHitLocation(actionTypeId));
+			this.addActions(actions, groupData);
+
+			actionTypeId = "utility";
+			groupData = { id: "utility", name: game.i18n.localize("tokenActionHud.fathomlessgears.utility"), type: "system" };
+			actions=[];
 			actions.push(this.constructWeightTotal(actionTypeId));
 			actions.push(this.constructBallastTokens(actionTypeId));
+			this.addActions(actions, groupData);
+
+			actionTypeId = "basicAttacks";
+			groupData = { id: "attacks", name: game.i18n.localize("tokenActionHud.fathomlessgears.attacks"), type: "system" };
+			actions=[];
+			actions.push(this.constructBashAction(actionTypeId));
+			actions.push(this.constructThreatDisplayAction(actionTypeId));
 			this.addActions(actions, groupData);
 		}
 
@@ -343,6 +382,77 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		constructMeltdown(actionTypeId) {
 			let id="meltdownRoll"
 			let name=game.i18n.localize("tokenActionHud.fathomlessgears.meltdownRoll");
+			let encodedValue = [actionTypeId, id].join(this.delimiter);
+		
+			return {id, name, encodedValue}
+		}
+
+		constructBashAction(actionTypeId) {
+			let id="bash"
+			let name=game.i18n.localize("tokenActionHud.fathomlessgears.bash");
+			let encodedValue = [actionTypeId, id].join(this.delimiter);
+		
+			return {id, name, encodedValue}
+		}
+
+		constructThreatDisplayAction(actionTypeId) {
+			let id="threatDisplay"
+			let name=game.i18n.localize("tokenActionHud.fathomlessgears.threatDisplay");
+			let encodedValue = [actionTypeId, id].join(this.delimiter);
+		
+			return {id, name, encodedValue}
+		}
+
+		constructWrangleAction(actionTypeId) {
+			let id="wrangle"
+			let name=game.i18n.localize("tokenActionHud.fathomlessgears.wrangle");
+			let encodedValue = [actionTypeId, id].join(this.delimiter);
+		
+			return {id, name, encodedValue}
+		}
+
+		constructPushAction(actionTypeId) {
+			let id="push"
+			let name=game.i18n.localize("tokenActionHud.fathomlessgears.push");
+			let encodedValue = [actionTypeId, id].join(this.delimiter);
+		
+			return {id, name, encodedValue}
+		}
+
+		constructIntimidateAction(actionTypeId) {
+			let id="intimidate"
+			let name=game.i18n.localize("tokenActionHud.fathomlessgears.intimidate");
+			let encodedValue = [actionTypeId, id].join(this.delimiter);
+		
+			return {id, name, encodedValue}
+		}
+
+		constructSlipAction(actionTypeId) {
+			let id="slip"
+			let name=game.i18n.localize("tokenActionHud.fathomlessgears.slip");
+			let encodedValue = [actionTypeId, id].join(this.delimiter);
+		
+			return {id, name, encodedValue}
+		}
+
+		constructScrubAction(actionTypeId) {
+			let id="scrub"
+			let name=game.i18n.localize("tokenActionHud.fathomlessgears.scrub");
+			let encodedValue = [actionTypeId, id].join(this.delimiter);
+		
+			return {id, name, encodedValue}
+		}
+
+		constructTransferAction(actionTypeId) {
+			let id="transferLine"
+			let name=game.i18n.localize("tokenActionHud.fathomlessgears.transferLine");
+			let encodedValue = [actionTypeId, id].join(this.delimiter);
+		
+			return {id, name, encodedValue}
+		}
+
+		constructAction(actionTypeId,id) {
+			let name=game.i18n.localize(`tokenActionHud.fathomlessgears.${id}`);
 			let encodedValue = [actionTypeId, id].join(this.delimiter);
 		
 			return {id, name, encodedValue}

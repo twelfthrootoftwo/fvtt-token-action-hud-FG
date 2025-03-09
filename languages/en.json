@@ -1,28 +1,41 @@
 {
-  "tokenActionHud": {
-    "fathomlessgears": {
-      "attribute": "Attributes",
-      "attributeLabels": {
-        "close": "Close",
-        "far": "Far",
-        "mental": "Mental",
-        "power": "Power"
-      },
-      "internal": "Internals",
-      "reel": "Reel",
-      "scanThis": "Mark/Revoke Scanned",
-      "scanAction": "Scan Target",
-      "utility": "Utilities",
-      "weightTotal": "Weight total",
-      "standard": "Standard Actions",
-      "development": "Developments",
-      "maneuver": "Maneuvers",
-      "word": "Deep words",
-      "fisher": "Fisher Advancements",
-      "ballastTokens": "Create Ballast Token",
-      "injuryRoll": "Roll Injury Table",
-      "touchRoll": "Roll Touch of the Deep",
-      "meltdownRoll": "Roll Meltdown"
-    }
-  }
+	"tokenActionHud": {
+		"fathomlessgears": {
+			"attribute": "Attributes",
+			"attributeLabels": {
+				"close": "Close",
+				"far": "Far",
+				"mental": "Mental",
+				"power": "Power"
+			},
+			"internal": "Internals",
+			"reel": "Reel",
+			"scanThis": "Mark/Revoke Scanned",
+			"scanAction": "Scan Target",
+			"utility": "Utilities",
+			"weightTotal": "Weight total",
+			"standard": "Standard Actions",
+			"development": "Developments",
+			"maneuver": "Maneuvers",
+			"word": "Deep words",
+			"fisher": "Fisher Advancements",
+			"ballastTokens": "Create Ballast Token",
+			"injuryRoll": "Injury Table",
+			"touchRoll": "Touch of the Deep",
+			"meltdownRoll": "Meltdown",
+			"bash": "Bash",
+			"slip": "Slip",
+			"scrub": "Scrub",
+			"transferLine": "Transfer the Line",
+			"wrangle": "Wrangle",
+			"push": "Push",
+			"intimidate": "Intimidate",
+			"threatDisplay": "Threat Display",
+			"basic": "Basic",
+			"attacks": "Attacks",
+			"other": "Other",
+			"encounter": "Encounter",
+			"narrative": "Narrative"
+		}
+	}
 }
