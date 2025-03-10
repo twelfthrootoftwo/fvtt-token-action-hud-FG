@@ -133,16 +133,12 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		#handleBasic(event, actor, actionId) {
 			switch (actionId) {
 				case "scanAction":
-					actor.scanTarget();
+					game.hudActions?.scanTarget(actor);
 					break;
 				case "slip":
-					console.log("Slip");
-					break;
 				case "scrub":
-					console.log("Scrub");
-					break;
 				case "transferLine":
-					console.log("Transfer line");
+					game.hudActions?.textAction(actor,actionId);
 					break;
 				default:
 					console.log(`Basic action code not recognised: ${actionId}`)
@@ -152,28 +148,16 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		#handleBasicAttacks(event, actor, actionId) {
 			switch (actionId) {
 				case "bash":
-					console.log("Bash");
-					game.rollHandler.startRollDialog(actor, ATTRIBUTES.close, null, actionId);
-					break;
 				case "wrangle":
-					console.log("Wrangle");
-					game.rollHandler.startRollDialog(actor, ATTRIBUTES.close, null, actionId);
-					break;
 				case "push":
-					console.log("Push");
 					game.rollHandler.startRollDialog(actor, ATTRIBUTES.close, null, actionId);
 					break;
 				case "intimidate":
-					console.log("Intimidate");
-					game.rollHandler.startRollDialog(actor, ATTRIBUTES.mental, null, actionId);
-					break;
 				case "threatDisplay":
-					console.log("Threat display");
 					game.rollHandler.startRollDialog(actor, ATTRIBUTES.mental, null, actionId);
 					break;
 				default:
 					console.log(`Basic action code not recognised: ${actionId}`)
-
 			}
 		}
 
