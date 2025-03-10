@@ -1,3 +1,5 @@
+import {ATTRIBUTES} from "../../../../systems/fathomlessgears/src/constants.js";
+
 export let RollHandler = null;
 
 Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
@@ -150,19 +152,24 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		#handleBasicAttacks(event, actor, actionId) {
 			switch (actionId) {
 				case "bash":
-					console.log("Bash")
+					console.log("Bash");
+					game.rollHandler.startRollDialog(actor, ATTRIBUTES.close, null, actionId);
 					break;
 				case "wrangle":
-					console.log("Wrangle")
+					console.log("Wrangle");
+					game.rollHandler.startRollDialog(actor, ATTRIBUTES.close, null, actionId);
 					break;
 				case "push":
-					console.log("Push")
+					console.log("Push");
+					game.rollHandler.startRollDialog(actor, ATTRIBUTES.close, null, actionId);
 					break;
 				case "intimidate":
-					console.log("Intimidate")
+					console.log("Intimidate");
+					game.rollHandler.startRollDialog(actor, ATTRIBUTES.mental, null, actionId);
 					break;
 				case "threatDisplay":
 					console.log("Threat display");
+					game.rollHandler.startRollDialog(actor, ATTRIBUTES.mental, null, actionId);
 					break;
 				default:
 					console.log(`Basic action code not recognised: ${actionId}`)
