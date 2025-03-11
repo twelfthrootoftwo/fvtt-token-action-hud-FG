@@ -73,6 +73,8 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				case "word":
 					this.#handleItem(event, actor, actionId);
 					break;
+				case "encounter":
+				case "narrative":
 				case "utility":
 					this.#handleUtils(event, actor, actionId);
 					break;
@@ -124,6 +126,9 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 					break;
 				case "meltdownRoll":
 					this.#handleMeltdownRoll();
+					break;
+				case "clearAllConditions":
+					actor.itemsManager.clearConditions();
 					break;
 				default:
 					console.log(`Util action code not recognised: ${actionId}`)

@@ -183,6 +183,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 			let actions=[];
 			let actionIds = []
 			actions.push(this.constructHitLocation(actionTypeId));
+			actions.push(this.constructAction(actionTypeId,"clearAllConditions"));
 			if(game.sensitiveDataAvailable) {
 				actions.push(this.constructAction(actionTypeId,"meltdownRoll"));
 			}
@@ -267,7 +268,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		async #buildFishActions() {
 			let actionTypeId = "encounter";
 			let groupData = { id: "encounter", name: game.i18n.localize("tokenActionHud.fathomlessgears.encounter"), type: "system" };
-			let actionIds = ["scanThis"]
+			let actionIds = ["scanThis", "clearAllConditions"]
 			let actions = actionIds.map((action) => this.constructAction(actionTypeId,action));
 			actions.push(this.constructHitLocation(actionTypeId));
 			this.addActions(actions, groupData);
