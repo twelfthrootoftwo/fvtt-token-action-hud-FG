@@ -9,6 +9,7 @@
 				"power": "Power"
 			},
 			"internal": "Internals",
+			"gear": "Gear",
 			"reel": "Reel",
 			"scanThis": "Mark/Revoke Scanned",
 			"scanAction": "Scan Target",
@@ -36,7 +37,8 @@
 			"attacks": "Attacks",
 			"other": "Other",
 			"encounter": "Encounter",
-			"narrative": "Narrative"
+			"narrative": "Narrative",
+			"frame": "Frame Ability"
 		}
 	}
 }

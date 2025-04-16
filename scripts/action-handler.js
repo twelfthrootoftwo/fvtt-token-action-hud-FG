@@ -112,6 +112,10 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 			await this.#buildWeaponInternals(weapons);
 			await this.#buildActiveInternals(active);
 			await this.#buildPassiveInternals(passive);
+
+			if (this.actorType === "fisher") {
+				await this.#buildFrameAbility();
+			}
 		}
 
 		/**
@@ -192,6 +196,22 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 					encodedValue,
 				});
 			});
+			this.addActions(actions, groupData);
+		}
+
+		async #buildFrameAbility() {
+			const actionTypeId = "frame";
+			const groupData = {
+				id: "frame",
+				name: game.i18n.localize(
+					"tokenActionHud.fathomlessgears.frame"
+				),
+				type: "system",
+			};
+
+			// Get actions
+			const actions = [];
+			actions.push(this.constructAction(actionTypeId, "frame"));
 			this.addActions(actions, groupData);
 		}
 

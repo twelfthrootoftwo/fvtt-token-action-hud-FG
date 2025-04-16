@@ -84,8 +84,13 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				case "basicAttacks":
 					this.#handleBasicAttacks(event, actor, actionId);
 					break;
+				case "frame":
+					actor.shareFrameAbility();
+					break;
 				default:
-					console.log(`Action type code not recognised: ${actionTypeId}`)
+					console.log(
+						`Action type code not recognised: ${actionTypeId}`
+					);
 			}
 		}
 
@@ -105,7 +110,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 		}
 
 		#handleUtils(event, actor, actionId) {
-			switch(actionId) {
+			switch (actionId) {
 				case "scanThis":
 					actor.toggleScan();
 					break;
@@ -131,7 +136,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 					actor.itemsManager.clearConditions();
 					break;
 				default:
-					console.log(`Util action code not recognised: ${actionId}`)
+					console.log(`Util action code not recognised: ${actionId}`);
 			}
 		}
 
@@ -143,10 +148,12 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				case "slip":
 				case "scrub":
 				case "transferLine":
-					game.hudActions?.textAction(actor,actionId);
+					game.hudActions?.textAction(actor, actionId);
 					break;
 				default:
-					console.log(`Basic action code not recognised: ${actionId}`)
+					console.log(
+						`Basic action code not recognised: ${actionId}`
+					);
 			}
 		}
 
@@ -155,19 +162,31 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				case "bash":
 				case "wrangle":
 				case "push":
-					game.rollHandler.startRollDialog(actor, ATTRIBUTES.close, null, actionId);
+					game.rollHandler.startRollDialog(
+						actor,
+						ATTRIBUTES.close,
+						null,
+						actionId
+					);
 					break;
 				case "intimidate":
 				case "threatDisplay":
-					game.rollHandler.startRollDialog(actor, ATTRIBUTES.mental, null, actionId);
+					game.rollHandler.startRollDialog(
+						actor,
+						ATTRIBUTES.mental,
+						null,
+						actionId
+					);
 					break;
 				default:
-					console.log(`Basic action code not recognised: ${actionId}`)
+					console.log(
+						`Basic action code not recognised: ${actionId}`
+					);
 			}
 		}
 
-		async #handleCollectiveAction(event, actionTypeId,actionId) {
-			switch(actionId) {
+		async #handleCollectiveAction(event, actionTypeId, actionId) {
+			switch (actionId) {
 				case "weightTotal":
 					this.#handleWeightTotal();
 					break;
@@ -175,7 +194,9 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 					this.#handleBallastTokens();
 					break;
 				default:
-					console.log(`Collective action code not recognised: ${actionId}`)
+					console.log(
+						`Collective action code not recognised: ${actionId}`
+					);
 			}
 		}
 
