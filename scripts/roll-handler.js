@@ -132,6 +132,9 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				case "meltdownRoll":
 					this.#handleMeltdownRoll();
 					break;
+				case "repairCost":
+					this.#handleRepairCost(actor);
+					break;
 				case "clearAllConditions":
 					actor.itemsManager.clearConditions();
 					break;
@@ -218,6 +221,10 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 
 		async #handleMeltdownRoll() {
 			game.rollTables?.rollMeltdown();
+		}
+
+		async #handleRepairCost(actor) {
+			game.hudActions?.calculateRepairCost(actor);
 		}
 	};
 });

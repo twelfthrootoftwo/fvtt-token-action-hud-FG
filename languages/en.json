@@ -38,7 +38,8 @@
 			"other": "Other",
 			"encounter": "Encounter",
 			"narrative": "Narrative",
-			"frame": "Frame Ability"
+			"frame": "Frame Ability",
+			"repairCost": "Calculate Repair Cost"
 		}
 	}
 }
