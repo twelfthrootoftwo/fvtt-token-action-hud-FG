@@ -120,6 +120,9 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				case "hitLocation":
 					actor.locationHitMessage();
 					break;
+				case "holdAp":
+					this.#handleHoldAp(actor);
+					break;
 				case "ballastTokens":
 					this.#handleBallastTokens();
 					break;
@@ -225,6 +228,10 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 
 		async #handleRepairCost(actor) {
 			game.hudActions?.calculateRepairCost(actor);
+		}
+
+		async #handleHoldAp(actor) {
+			game.hudActions?.holdAp(actor);
 		}
 	};
 });

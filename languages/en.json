@@ -39,7 +39,8 @@
 			"encounter": "Encounter",
 			"narrative": "Narrative",
 			"frame": "Frame Ability",
-			"repairCost": "Calculate Repair Cost"
+			"repairCost": "Calculate Repair Cost",
+			"holdAp": "Reserve AP"
 		}
 	}
 }

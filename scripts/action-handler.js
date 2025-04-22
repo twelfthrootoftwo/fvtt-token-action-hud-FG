@@ -235,6 +235,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				this.constructAction(actionTypeId, "clearAllConditions")
 			);
 			actions.push(this.constructAction(actionTypeId, "meltdownRoll"));
+			actions.push(this.constructAction(actionTypeId, "holdAp"));
 			this.addActions(actions, groupData);
 
 			actionTypeId = "narrative";
@@ -365,6 +366,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				this.constructAction(actionTypeId, action)
 			);
 			actions.push(this.constructHitLocation(actionTypeId));
+			actions.push(this.constructAction(actionTypeId, "holdAp"));
 			this.addActions(actions, groupData);
 
 			actionTypeId = "utility";
