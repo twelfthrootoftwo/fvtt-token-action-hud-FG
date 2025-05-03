@@ -27,6 +27,20 @@ export const ACTION_TYPE = {
 	development: "tokenActionHud.development",
 };
 
+export const ATTRIBUTES = {
+	close: "close",
+	far: "far",
+	mental: "mental",
+	power: "power",
+	evasion: "evasion",
+	willpower: "willpower",
+	speed: "speed",
+	sensors: "sensors",
+	weight: "weight",
+	baseAP: "baseAP",
+	ballast: "ballast",
+};
+
 /**
  * Groups
  */

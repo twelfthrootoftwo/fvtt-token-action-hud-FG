@@ -1,4 +1,4 @@
-import {ATTRIBUTES} from "../../../../systems/fathomlessgears/src/constants.js";
+import {ATTRIBUTES} from "./constants.js";
 
 export let RollHandler = null;
 
