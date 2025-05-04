@@ -11,8 +11,8 @@
 	"flags": {},
 	"version": "#{VERSION}#",
 	"compatibility": {
-		"minimum": "11",
-		"verified": "11.315"
+		"minimum": "12",
+		"verified": "12.331"
 	},
 	"esmodules": ["./scripts/init.js"],
 	"scripts": [],
@@ -31,7 +31,6 @@
 				"id": "fathomlessgears",
 				"type": "system",
 				"compatibility": {
-					"minimum": "0.9.1",
 					"verified": "0.9.1"
 				}
 			}
@@ -41,9 +40,8 @@
 				"id": "token-action-hud-core",
 				"type": "module",
 				"compatibility": {
-					"minimum": "1.5.0",
-					"maximum": "1.5.7",
-					"verified": "1.5.7"
+					"minimum": "2.0",
+					"verified": "2.0.11"
 				}
 			}
 		],
