@@ -336,7 +336,6 @@
 
 .tah-groups {
     display: flex;
-    flex-direction: column;
     gap: var(--tah-gap);
     width: max-content;
 }
