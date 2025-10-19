@@ -252,7 +252,6 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				"touchRoll",
 				"repairCost",
 			];
-			console.log(`Constructing actions ${actionIds}`);
 			actions = actionIds.map((action) =>
 				this.constructAction(actionTypeId, action)
 			);
