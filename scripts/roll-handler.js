@@ -126,6 +126,9 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				case "ballastTokens":
 					this.#handleBallastTokens();
 					break;
+				case "narrativeRoll":
+					this.#handleNarrativeRoll(actor);
+					break;
 				case "injuryRoll":
 					this.#handleInjuryRoll();
 					break;
@@ -212,6 +215,10 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 
 		async #handleBallastTokens() {
 			game.hudActions?.createBallastTokens();
+		}
+
+		async #handleNarrativeRoll(actor) {
+			game.hudActions?.rollNarrative(actor);
 		}
 
 		async #handleInjuryRoll() {

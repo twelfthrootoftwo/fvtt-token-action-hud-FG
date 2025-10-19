@@ -246,7 +246,13 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				),
 				type: "system",
 			};
-			actionIds = ["injuryRoll", "touchRoll", "repairCost"];
+			actionIds = [
+				"narrativeRoll",
+				"injuryRoll",
+				"touchRoll",
+				"repairCost",
+			];
+			console.log(`Constructing actions ${actionIds}`);
 			actions = actionIds.map((action) =>
 				this.constructAction(actionTypeId, action)
 			);
