@@ -151,6 +151,14 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 
 		#handleBasic(event, actor, actionId) {
 			switch (actionId) {
+				case "reelCheck":
+					game.rollHandler.startRollDialog(
+						actor,
+						ATTRIBUTES.power,
+						null,
+						actionId
+					);
+					break;
 				case "scanAction":
 					game.hudActions?.scanTarget(actor);
 					break;
@@ -183,6 +191,14 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 					game.rollHandler.startRollDialog(
 						actor,
 						ATTRIBUTES.mental,
+						null,
+						actionId
+					);
+					break;
+				case "reelCheck":
+					game.rollHandler.startRollDialog(
+						actor,
+						ATTRIBUTES.power,
 						null,
 						actionId
 					);

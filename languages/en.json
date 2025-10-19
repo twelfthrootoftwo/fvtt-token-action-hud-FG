@@ -41,7 +41,8 @@
 			"narrative": "Narrative",
 			"frame": "Frame Ability",
 			"repairCost": "Calculate Repair Cost",
-			"holdAp": "Reserve AP"
+			"holdAp": "Reserve AP",
+			"reelCheck": "Reel Check"
 		}
 	}
 }

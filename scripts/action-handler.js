@@ -281,7 +281,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				),
 				type: "system",
 			};
-			actionIds = ["scanAction"];
+			actionIds = ["reelCheck", "scanAction"];
 			actionIds = actionIds.concat(["slip", "scrub", "transferLine"]);
 			actions = actionIds.map((action) =>
 				this.constructAction(actionTypeId, action)
@@ -396,7 +396,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 				),
 				type: "system",
 			};
-			actionIds = ["bash", "threatDisplay"];
+			actionIds = ["reelCheck", "bash", "threatDisplay"];
 			actions = actionIds.map((action) =>
 				this.constructAction(actionTypeId, action)
 			);
