@@ -446,7 +446,7 @@ Hooks.once("tokenActionHudCoreApiReady", async (coreModule) => {
 
 		constructHitLocation(actionTypeId) {
 			let id = "hitLocation";
-			let name = game.i18n.localize("SHEET.hitlocation");
+			let name = game.i18n.localize("SHEET.hitLocation");
 			let encodedValue = [actionTypeId, id].join(this.delimiter);
 
 			return {id, name, encodedValue};
